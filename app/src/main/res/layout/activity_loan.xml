@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/jet"
-    tools:context=".MainActivity">
+    tools:context=".LoanActivity">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -26,7 +25,7 @@
                 android:id="@+id/textView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User Log in"
+                android:text="Loans"
                 android:gravity="center"
                 android:textColor="#ffffff"
                 android:layout_marginTop="20dp"
@@ -34,32 +33,11 @@
                 android:layout_marginBottom="20dp"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <TextView
-                android:id="@+id/message"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                />
-
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
                 android:layout_marginBottom="10dp"
                 android:background="#C0C0C0"/>
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:text="Amtech Technologies Limited"
-                android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#A2F368"
-                android:textSize="25sp"
-                android:typeface="serif" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -113,7 +91,7 @@
                 android:textColor="#fff"
                 android:background="@color/dot_dark_screen3"
                 android:textStyle="bold"
-                android:text="Login"/>
+                android:text="Loans"/>
         </LinearLayout>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

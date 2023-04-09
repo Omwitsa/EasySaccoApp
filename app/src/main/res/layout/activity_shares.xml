@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SharesActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity" >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:background="@color/tabteal"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        <TableLayout
+            android:id="@+id/widget56"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/sTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:textSize="18sp"
+                android:visibility="gone" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/qty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:scrollHorizontally="false"
+                android:scrollbars="vertical"
+                android:textSize="45sp" >
+
+            </EditText>
+            <TextView
+                android:id="@+id/cont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Container weight" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/TextViewc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:scrollHorizontally="false"
+                android:scrollbars="vertical"
+                android:textSize="45sp" >
+
+            </EditText>
+
+            <TextView
+                android:id="@+id/finale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Final  weight" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/TextViewf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:scrollHorizontally="false"
+                android:scrollbars="vertical"
+
+                android:textSize="45sp" >
+
+            </EditText>
+
+            <TextView
+                android:id="@+id/widget64"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Supplier No" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/sno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textSize="34sp">
+            </EditText>
+
+            <TextView
+                android:id="@+id/txt_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product" >
+
+            </TextView>
+
+            <Spinner
+                android:id="@+id/product"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                />
+
+            <TextView
+                android:id="@+id/conType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SHIFT" >
+            </TextView>
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/back"
+                android:text="Print and Save Collection" >
+            </Button>
+        </TableLayout>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
