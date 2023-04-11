@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -23,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog dialog = null;
     SQLiteDatabase db;
     TextView tv_message;
+    SharedPreferences sharedPreferences;
+    // Creating an Editor object to edit(write to the file)
+    SharedPreferences.Editor prefsEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         et_username = (EditText) findViewById(R.id.username);
         et_password = (EditText) findViewById(R.id.password);
         tv_message = (TextView) findViewById(R.id.message);
+
+        sharedPreferences = getSharedPreferences("preferences",MODE_PRIVATE);
+        prefsEditor = sharedPreferences.edit();
 
         db = openOrCreateDatabase("BosaDb", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS members(username VARCHAR,company VARCHAR,branch VARCHAR, password VARCHAR,datepp DATETIME, status VARCHAR);");
@@ -58,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void login(){
         try {
-            Cursor c = db.rawQuery("SELECT * FROM members WHERE username='" + et_username.getText() + "' and password='" + et_password.getText() + "'", null);
+            String user = et_username.getText().toString();
+            Cursor c = db.rawQuery("SELECT * FROM members WHERE username='" + user + "' and password='" + et_password.getText() + "'", null);
             if ((c.getCount() == 0) && (et_username.getText().toString() != "faben")) {
                 tv_message.setText("Enter the correct username or password");
                 tv_message.setTextColor(Color.RED);
@@ -73,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
                         tv_message.setTextColor(Color.GREEN);
                         runOnUiThread(new Runnable() {
                             public void run() {
+                                // Storing the key and its value as the data fetched from edittext
+                                prefsEditor.putString("loggedInUser", user);
+                                // Commit to apply the changes
+                                prefsEditor.commit();
                                 Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                             }
                         });

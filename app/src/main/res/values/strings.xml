@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">EasySaccoApp</string>
+    <string name="text_enable_bluetooth">Enable Bluetooth</string>
+    <string name="text_connect">Connect</string>
+    <string name="text_print_receipt">Print Collection Receipt</string>
 </resources>

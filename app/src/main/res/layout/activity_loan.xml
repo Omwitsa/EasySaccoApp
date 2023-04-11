@@ -1,97 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoanActivity">
+    android:fitsSystemWindows="true">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity" >
+    <LinearLayout
+        android:id="@+id/widget55"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:background="@color/tabteal"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <TableLayout
+            android:id="@+id/widget56"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/tx_memberNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Member No.">
+            </TextView>
+
+            <EditText
+                android:id="@+id/memberNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Loans"
-                android:gravity="center"
-                android:textColor="#ffffff"
-                android:layout_marginTop="20dp"
-                android:textStyle="bold"
-                android:layout_marginBottom="20dp"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:scrollHorizontally="false"
+                android:scrollbars="vertical"
+                android:textSize="45sp">
+            </EditText>
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:layout_marginBottom="10dp"
-                android:background="#C0C0C0"/>
+            <TextView
+                android:id="@+id/tx_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount">
+            </TextView>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColorHint="@color/white"
-                android:layout_marginBottom="8dp">
-                <EditText
-                    android:id="@+id/username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="User name"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="20dp"
-                    android:textColor="#fff"
-                    android:textSize="20dp"
-                    android:inputType="textCapCharacters" >
-                    <requestFocus />
-                </EditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:inputType="numberDecimal"
+                android:scrollHorizontally="false"
+                android:scrollbars="vertical"
+                android:textSize="45sp" >
+            </EditText>
 
+            <TextView
+                android:id="@+id/tx_transType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loan Type" >
+            </TextView>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
+                android:id="@+id/loanType"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                />
+
+            <Button
+                android:id="@+id/save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColorHint="@color/white"
-                android:layout_marginBottom="8dp">
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Password"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="#fff"
-                    android:textSize="20dp"
-                    android:inputType="textPassword" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/login"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                android:textColor="#fff"
-                android:background="@color/dot_dark_screen3"
-                android:textStyle="bold"
-                android:text="Loans"/>
-        </LinearLayout>
-    </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="Print and Save Collection" >
+            </Button>
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>
