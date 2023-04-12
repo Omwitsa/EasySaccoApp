@@ -2,13 +2,16 @@ package com.example.easysaccoapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -26,6 +29,7 @@ import com.example.easysaccoapp.util.P25ConnectionException;
 import com.example.easysaccoapp.util.P25Connector;
 import com.example.easysaccoapp.util.Printer;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -140,7 +144,7 @@ public class PrintActivity extends AppCompatActivity {
 
     private void printStruk() {
         Bundle getBundle = this.getIntent().getExtras();
-        String transType = getBundle.getString("transType");
+        int transType = getBundle.getInt("transType");
         String memberNo = getBundle.getString("memberNo");
         long milis1 = System.currentTimeMillis();
         String date = DateUtil.timeMilisToString(milis1, "yyyy-MM-dd");
@@ -148,9 +152,9 @@ public class PrintActivity extends AppCompatActivity {
         String time = DateUtil.timeMilisToString(milis1, "  HH:mm a");
         StringBuffer buffer = new StringBuffer();
 
-        String query = "SELECT sum(amount),auditId FROM loanRepay WHERE printed='0' AND memberNo='"+memberNo+"' AND transdate='"+date+"'";
-        if (transType == AppConstants.SHARESCONTRIB){
-            query = "SELECT sum(amount),auditId FROM sharesContrib WHERE printed='0' AND memberNo='"+memberNo+"' AND transdate='"+date+"'";
+        String query = "SELECT sum(amount),auditId FROM loanRepay WHERE printed='0' AND memberNo='" + memberNo + "' AND transdate='" + date + "'";
+        if (transType == AppConstants.SHARESCONTRIB) {
+            query = "SELECT sum(amount),auditId FROM sharesContrib WHERE printed='0' AND memberNo='" + memberNo + "' AND transdate='" + date + "'";
         }
 
         String strAmount = "";
@@ -162,19 +166,19 @@ public class PrintActivity extends AppCompatActivity {
         }
 
         String transaction = "Loan Repay";
-        if (transType == AppConstants.SHARESCONTRIB){
+        if (transType == AppConstants.SHARESCONTRIB) {
             transaction = "Shares Contribution";
         }
         buffer.append("Member No    :" + memberNo + "\n");
         buffer.append("Quantity       : KES. " + strAmount + "\n");
-        buffer.append("Received By    :" + strAuditId+ "\n");
+        buffer.append("Received By    :" + strAuditId + "\n");
 
         /*
         buffer.append("Office TelNo.   : 0746776828\n");
         buffer.append("Vet   : \n");
         * */
         StringBuilder content2Sb = new StringBuilder();
-        content2Sb.append("\n" + AppConstants.SACCO + "\n\t" + transaction + " RECEIPT" + "\n\n");
+        content2Sb.append("\n" + AppConstants.SACCO + "\n\n\t" + transaction + " RECEIPT" + "\n\n");
         content2Sb.append("-----------------------------" + "\n");
         content2Sb.append("" + buffer.toString() + "" + "\n");
         content2Sb.append("--------------------------" + "\n");
@@ -195,11 +199,11 @@ public class PrintActivity extends AppCompatActivity {
         sendData(senddata, memberNo, transType);
     }
 
-    private void sendData(byte[] bytes, String memberNo, String transType) {
+    private void sendData(byte[] bytes, String memberNo, int transType) {
         try {
-            String query = "UPDATE loanRepay set printed='1' where printed='0' AND memberNo='"+memberNo+"';";
-            if (transType == AppConstants.SHARESCONTRIB){
-                query = "UPDATE sharesContrib set printed='1' where printed='0' AND memberNo='"+memberNo+"';";
+            String query = "UPDATE loanRepay set printed='1' where printed='0' AND memberNo='" + memberNo + "';";
+            if (transType == AppConstants.SHARESCONTRIB) {
+                query = "UPDATE sharesContrib set printed='1' where printed='0' AND memberNo='" + memberNo + "';";
             }
             db.execSQL(query);
             mConnector.sendData(bytes);
@@ -237,6 +241,18 @@ public class PrintActivity extends AppCompatActivity {
 
 
         //my code
+    }
+
+    private void createBond(BluetoothDevice device) throws Exception {
+        try {
+            Class<?> cl = Class.forName("android.bluetooth.BluetoothDevice");
+            Class<?>[] par = {};
+            Method method = cl.getMethod("createBond", par);
+            method.invoke(device);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     private void updateDeviceList() {

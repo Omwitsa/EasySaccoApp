@@ -49,7 +49,7 @@ public class LoanActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         db = openOrCreateDatabase("BosaDb", Context.MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS loanRepay(memberNo VARCHAR,amount VARCHAR, date DATETIME, auditId VARCHAR,status VARCHAR, transdate DATETIME, printed VARCHAR);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS loanRepay(memberNo VARCHAR,amount VARCHAR, loanShareType VARCHAR, date DATETIME, auditId VARCHAR,status VARCHAR, transdate DATETIME, printed VARCHAR);");
         db.execSQL("CREATE TABLE IF NOT EXISTS loanTypes(type VARCHAR);");
         Cursor c = db.rawQuery("SELECT type FROM loanTypes", null);
 
@@ -112,18 +112,16 @@ public class LoanActivity extends AppCompatActivity {
                 Calendar c = Calendar.getInstance();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String date1 = sdf.format(c.getTime());
-                SimpleDateFormat ff = new SimpleDateFormat("yyyy-MM-dd");
-                String trans= ff.format(c.getTime());
                 String loggenInUser = sharedPreferences.getString("loggedInUser", "");
 
-                db.execSQL("INSERT INTO loanRepay  VALUES('" + member_no + "', '" + amount + "', '" + date1 +"','" + loggenInUser + "','0', '"+date_print +"', '0');");
+                db.execSQL("INSERT INTO loanRepay  VALUES('" + member_no + "', '" + amount + "', '" + loan +"', '" + date1 +"','" + loggenInUser + "','0', '"+date_print +"', '0');");
                 showMessage("Success", "Record added");
                 et_memberNo.setText("");
                 et_amount.setText("");
 
                 Intent i = new Intent(getApplicationContext(), PrintActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("transType", AppConstants.LOANREPAY);
+                bundle.putInt("transType", AppConstants.LOANREPAY);
                 bundle.putString("memberNo", member_no);
                 i.putExtras(bundle);
                 startActivity(i);

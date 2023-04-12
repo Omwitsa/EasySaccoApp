@@ -54,6 +54,8 @@ public class ContentActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         db = openOrCreateDatabase("BosaDb", Context.MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS loanRepay(memberNo VARCHAR,amount VARCHAR, loanShareType VARCHAR, date DATETIME, auditId VARCHAR,status VARCHAR, transdate DATETIME, printed VARCHAR);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS sharesContrib(memberNo VARCHAR,amount VARCHAR, loanShareType VARCHAR, date DATETIME, auditId VARCHAR,status VARCHAR, transdate DATETIME, printed VARCHAR);");
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,21 +122,23 @@ public class ContentActivity extends AppCompatActivity {
         while (loansCursor.moveToNext()) {
             String memberNo = loansCursor.getString(0);
             String amount = loansCursor.getString(1);
-            String date = loansCursor.getString(2);
-            String auditId = loansCursor.getString(3);
-            String transType = AppConstants.LOANREPAY;
+            String loanShareType = loansCursor.getString(2);
+            String date = loansCursor.getString(3);
+            String auditId = loansCursor.getString(4);
+            int transType = AppConstants.LOANREPAY;
 
-            payments.add(new SynchData(memberNo, amount, date, auditId, transType));
+            payments.add(new SynchData(memberNo, amount, loanShareType, date, auditId, transType));
         }
 
         while (sharesCursor.moveToNext()) {
             String memberNo = sharesCursor.getString(0);
             String amount = sharesCursor.getString(1);
-            String date = sharesCursor.getString(2);
-            String auditId = sharesCursor.getString(3);
-            String transType = AppConstants.SHARESCONTRIB;
+            String loanShareType = sharesCursor.getString(2);
+            String date = sharesCursor.getString(3);
+            String auditId = sharesCursor.getString(4);
+            int transType = AppConstants.SHARESCONTRIB;
 
-            payments.add(new SynchData(memberNo, amount, date, auditId, transType));
+            payments.add(new SynchData(memberNo, amount, loanShareType, date, auditId, transType));
         }
 
         try {
@@ -148,8 +152,11 @@ public class ContentActivity extends AppCompatActivity {
                     dialog.dismiss();
                     String status = responseData.getMessage();
                     Toast.makeText(getApplicationContext(), status, Toast.LENGTH_LONG).show();
-                    db.execSQL("UPDATE loanRepay set status='1' where status='0';");
-                    db.execSQL("UPDATE sharesContrib set status='1' where status='0';");
+                    if (responseData.isSuccess()){
+                        db.execSQL("UPDATE loanRepay set status='1' where status='0';");
+                        db.execSQL("UPDATE sharesContrib set status='1' where status='0';");
+                    }
+
                 }
 
                 @Override

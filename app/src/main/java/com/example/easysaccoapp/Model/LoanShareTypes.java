@@ -6,28 +6,28 @@ import java.util.List;
 
 public class LoanShareTypes {
     @SerializedName("loanTypes")
-    private List<String> LoanTypes;
+    private List<String> loanTypes;
     @SerializedName("shareTypes")
-    private List<String> ShareTypes;
+    private List<String> shareTypes;
 
     public LoanShareTypes(List<String> loanTypes, List<String> shareTypes) {
-        LoanTypes = loanTypes;
-        ShareTypes = shareTypes;
+        this.loanTypes = loanTypes;
+        this.shareTypes = shareTypes;
     }
 
     public List<String> getLoanTypes() {
-        return LoanTypes;
+        return loanTypes;
     }
 
     public void setLoanTypes(List<String> loanTypes) {
-        LoanTypes = loanTypes;
+        this.loanTypes = loanTypes;
     }
 
     public List<String> getShareTypes() {
-        return ShareTypes;
+        return shareTypes;
     }
 
     public void setShareTypes(List<String> shareTypes) {
-        ShareTypes = shareTypes;
+        this.shareTypes = shareTypes;
     }
 }

@@ -6,39 +6,39 @@ import java.util.List;
 
 public class LoanShareResp {
     @SerializedName("success")
-    private boolean Success;
+    private boolean success;
     @SerializedName("message")
-    private String Message;
+    private String message;
     @SerializedName("data")
-    private LoanShareTypes LoanShareTypes;
+    private LoanShareTypes loanShareTypes;
 
-    public LoanShareResp(boolean success, String message, com.example.easysaccoapp.Model.LoanShareTypes loanShareTypes) {
-        Success = success;
-        Message = message;
-        LoanShareTypes = loanShareTypes;
+    public LoanShareResp(boolean success, String message, LoanShareTypes loanShareTypes) {
+        this.success = success;
+        this.message = message;
+        this.loanShareTypes = loanShareTypes;
     }
 
     public boolean isSuccess() {
-        return Success;
+        return success;
     }
 
     public void setSuccess(boolean success) {
-        Success = success;
+        this.success = success;
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String message) {
-        Message = message;
+        this.message = message;
     }
 
-    public com.example.easysaccoapp.Model.LoanShareTypes getLoanShareTypes() {
-        return LoanShareTypes;
+    public LoanShareTypes getLoanShareTypes() {
+        return loanShareTypes;
     }
 
-    public void setLoanShareTypes(com.example.easysaccoapp.Model.LoanShareTypes loanShareTypes) {
-        LoanShareTypes = loanShareTypes;
+    public void setLoanShareTypes(LoanShareTypes loanShareTypes) {
+        this.loanShareTypes = loanShareTypes;
     }
 }

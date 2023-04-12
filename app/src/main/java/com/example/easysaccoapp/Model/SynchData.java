@@ -4,38 +4,49 @@ import com.google.gson.annotations.SerializedName;
 
 public class SynchData {
     @SerializedName("memberNo")
-    private String MemberNo;
+    private String memberNo;
     @SerializedName("amount")
-    private String Amount;
+    private String amount;
+    @SerializedName("loanShareType")
+    private String loanShareType;
     @SerializedName("date")
     private String date;
     @SerializedName("auditID")
-    private String AuditId;
+    private String auditID;
     @SerializedName("transType")
-    private String TransType;
+    private int transType;
 
-    public SynchData(String memberNo, String amount, String date, String auditId, String transType) {
-        MemberNo = memberNo;
-        Amount = amount;
+    public SynchData(String memberNo, String amount, String loanShareType, String date, String auditID, int transType) {
+        this.memberNo = memberNo;
+        this.amount = amount;
+        this.loanShareType = loanShareType;
         this.date = date;
-        AuditId = auditId;
-        TransType = transType;
+        this.auditID = auditID;
+        this.transType = transType;
     }
 
     public String getMemberNo() {
-        return MemberNo;
+        return memberNo;
     }
 
     public void setMemberNo(String memberNo) {
-        MemberNo = memberNo;
+        this.memberNo = memberNo;
     }
 
     public String getAmount() {
-        return Amount;
+        return amount;
     }
 
     public void setAmount(String amount) {
-        Amount = amount;
+        this.amount = amount;
+    }
+
+    public String getLoanShareType() {
+        return loanShareType;
+    }
+
+    public void setLoanShareType(String loanShareType) {
+        this.loanShareType = loanShareType;
     }
 
     public String getDate() {
@@ -46,19 +57,19 @@ public class SynchData {
         this.date = date;
     }
 
-    public String getAuditId() {
-        return AuditId;
+    public String getAuditID() {
+        return auditID;
     }
 
-    public void setAuditId(String auditId) {
-        AuditId = auditId;
+    public void setAuditID(String auditID) {
+        this.auditID = auditID;
     }
 
-    public String getTransType() {
-        return TransType;
+    public int getTransType() {
+        return transType;
     }
 
-    public void setTransType(String transType) {
-        TransType = transType;
+    public void setTransType(int transType) {
+        this.transType = transType;
     }
 }

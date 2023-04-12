@@ -6,14 +6,14 @@ public class Response {
     @SerializedName("success")
     private boolean success;
     @SerializedName("message")
-    private String Message;
+    private String message;
     @SerializedName("data")
-    private String Data;
+    private String data;
 
     public Response(boolean success, String message, String data) {
         this.success = success;
-        Message = message;
-        Data = data;
+        this.message = message;
+        this.data = data;
     }
 
     public boolean isSuccess() {
@@ -25,18 +25,18 @@ public class Response {
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String message) {
-        Message = message;
+        this.message = message;
     }
 
     public String getData() {
-        return Data;
+        return data;
     }
 
     public void setData(String data) {
-        Data = data;
+        this.data = data;
     }
 }
