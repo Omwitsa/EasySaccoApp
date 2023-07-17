@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -144,41 +145,77 @@ public class PrintActivity extends AppCompatActivity {
 
     private void printStruk() {
         Bundle getBundle = this.getIntent().getExtras();
-        int transType = getBundle.getInt("transType");
+        int operation = getBundle.getInt("operation");
         String memberNo = getBundle.getString("memberNo");
+        String transType = getBundle.getString("transType");
         long milis1 = System.currentTimeMillis();
         String date = DateUtil.timeMilisToString(milis1, "yyyy-MM-dd");
 
         String time = DateUtil.timeMilisToString(milis1, "  HH:mm a");
-        StringBuffer buffer = new StringBuffer();
 
-        String query = "SELECT sum(amount),auditId FROM loanRepay WHERE printed='0' AND memberNo='" + memberNo + "' AND transdate='" + date + "'";
-        if (transType == AppConstants.SHARESCONTRIB) {
-            query = "SELECT sum(amount),auditId FROM sharesContrib WHERE printed='0' AND memberNo='" + memberNo + "' AND transdate='" + date + "'";
+        Cursor l = db.rawQuery("SELECT type FROM loanTypes", null);
+        ArrayList<String> loanTypeList = new ArrayList<>();
+        while (l.moveToNext()) {
+            String loanType = l.getString(0);
+            loanTypeList.add(loanType);
         }
 
-        String strAmount = "";
+        Cursor s = db.rawQuery("SELECT type FROM shareTypes", null);
+        ArrayList<String> sharesTypeList = new ArrayList<>();
+        while (s.moveToNext()) {
+            String sharesType = s.getString(0);
+            sharesTypeList.add(sharesType);
+        }
+
         String strAuditId = "";
-        Cursor c1 = db.rawQuery(query, null);
-        while (c1.moveToNext()) {
-            strAmount = c1.getString(0);
-            strAuditId = c1.getString(1);
+        StringBuffer buffer = new StringBuffer();
+        Double totalCollected = Double.valueOf(0);
+        for(String loanType : loanTypeList){
+            String query = "SELECT sum(amount),auditId FROM loanRepay WHERE printed='0' AND memberNo='" + memberNo + "' AND transdate='" + date + "' AND loanShareType='"+loanType+"'";
+            Cursor lc = db.rawQuery(query, null);
+            Double amount = Double.valueOf(0);
+            while (lc.moveToNext()) {
+                String str_amount = lc.getString(0);
+                if (str_amount == null)
+                    str_amount = "0";
+                amount += Double.parseDouble(str_amount);
+                strAuditId = lc.getString(1);
+            }
+
+            totalCollected += amount;
+            if (amount > 0){
+                buffer.append(loanType + "\n");
+                buffer.append("Amount       : KES. " + amount + "\n");
+                buffer.append("-----------------------------" + "\n");
+            }
         }
 
-        String transaction = "Loan Repay";
-        if (transType == AppConstants.SHARESCONTRIB) {
-            transaction = "Shares Contribution";
+        for(String shareType : sharesTypeList){
+            String query = "SELECT sum(amount),auditId FROM sharesContrib WHERE printed='0' AND memberNo='" + memberNo + "' AND transdate='" + date + "' AND loanShareType='"+shareType+"'";
+            Cursor sc = db.rawQuery(query, null);
+            Double amount = Double.valueOf(0);
+            while (sc.moveToNext()) {
+                String str_amount = sc.getString(0);
+                if (str_amount == null)
+                    str_amount = "0";
+                amount += Double.parseDouble(str_amount);
+                strAuditId = sc.getString(1);
+            }
+
+            totalCollected += amount;
+            if (amount > 0){
+                buffer.append(shareType + "\n");
+                buffer.append("Amount       : KES. " + amount + "\n");
+                buffer.append("-----------------------------" + "\n");
+            }
         }
+
         buffer.append("Member No    :" + memberNo + "\n");
-        buffer.append("Quantity       : KES. " + strAmount + "\n");
+        buffer.append("Total Amount       : KES. " + totalCollected + "\n");
         buffer.append("Received By    :" + strAuditId + "\n");
 
-        /*
-        buffer.append("Office TelNo.   : 0746776828\n");
-        buffer.append("Vet   : \n");
-        * */
         StringBuilder content2Sb = new StringBuilder();
-        content2Sb.append("\n" + AppConstants.SACCO + "\n\n\t" + transaction + " RECEIPT" + "\n\n");
+        content2Sb.append("\n" + AppConstants.SACCO + "\n\n\t" + "COLLECTION RECEIPT" + "\n\n");
         content2Sb.append("-----------------------------" + "\n");
         content2Sb.append("" + buffer.toString() + "" + "\n");
         content2Sb.append("--------------------------" + "\n");
@@ -196,13 +233,13 @@ public class PrintActivity extends AppCompatActivity {
         System.arraycopy(content2Byte, 0, totalByte, offset, content2Byte.length);
         offset += content2Byte.length;
         byte[] senddata = PocketPos.FramePack(PocketPos.FRAME_TOF_PRINT, totalByte, 0, totalByte.length);
-        sendData(senddata, memberNo, transType);
+        sendData(senddata, memberNo, operation);
     }
 
-    private void sendData(byte[] bytes, String memberNo, int transType) {
+    private void sendData(byte[] bytes, String memberNo, int operation) {
         try {
             String query = "UPDATE loanRepay set printed='1' where printed='0' AND memberNo='" + memberNo + "';";
-            if (transType == AppConstants.SHARESCONTRIB) {
+            if (operation == AppConstants.SHARESCONTRIB) {
                 query = "UPDATE sharesContrib set printed='1' where printed='0' AND memberNo='" + memberNo + "';";
             }
             db.execSQL(query);

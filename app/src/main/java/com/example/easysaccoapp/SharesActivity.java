@@ -127,8 +127,9 @@ public class SharesActivity extends AppCompatActivity {
 
                 Intent i = new Intent(getApplicationContext(), PrintActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("transType", AppConstants.SHARESCONTRIB);
+                bundle.putInt("operation", AppConstants.SHARESCONTRIB);
                 bundle.putString("memberNo", member_no);
+                bundle.putString("transType", shares);
                 i.putExtras(bundle);
                 startActivity(i);
             }

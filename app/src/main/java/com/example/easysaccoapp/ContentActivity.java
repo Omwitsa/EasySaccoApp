@@ -36,7 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ContentActivity extends AppCompatActivity {
-    Button btn_loans, btn_shares;
+    Button btn_loans, btn_shares, btn_daily_Report;
     ApiInterface apiService;
     static SQLiteDatabase db;
     ProgressDialog dialog = null;
@@ -48,6 +48,7 @@ public class ContentActivity extends AppCompatActivity {
 
         btn_loans = (Button) findViewById(R.id.loans);
         btn_shares = (Button) findViewById(R.id.shares);
+        btn_daily_Report = (Button) findViewById(R.id.daily_report);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("TRANSACTIONS");
@@ -75,6 +76,14 @@ public class ContentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ContentActivity.this, SharesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_daily_Report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ContentActivity.this, DailyReportsActivity.class);
                 startActivity(intent);
             }
         });

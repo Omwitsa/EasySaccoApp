@@ -121,8 +121,9 @@ public class LoanActivity extends AppCompatActivity {
 
                 Intent i = new Intent(getApplicationContext(), PrintActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("transType", AppConstants.LOANREPAY);
+                bundle.putInt("operation", AppConstants.LOANREPAY);
                 bundle.putString("memberNo", member_no);
+                bundle.putString("transType", loan);
                 i.putExtras(bundle);
                 startActivity(i);
             }

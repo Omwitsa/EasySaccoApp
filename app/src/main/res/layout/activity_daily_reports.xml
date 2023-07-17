@@ -1,0 +1,86 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical">
+
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/my_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:elevation="4dp"
+    android:background="@color/tabteal"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborder"
+        android:layout_margin="30dp"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <Button
+            android:id="@+id/btn_enabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:text="@string/text_enable_bluetooth" />
+
+        <Button
+            android:id="@+id/btn_connectd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/GREEN"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/text_connect" />
+
+        <Spinner
+            android:id="@+id/sp_deviced"
+            android:layout_toLeftOf="@+id/btn_connectd"
+            android:layout_alignBottom="@+id/btn_connectd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"/>
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/Transsdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:cursorVisible="false"
+        android:drawableRight="@drawable/ic_date"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="Click Here to pick Date"
+        android:inputType="date" />
+
+    <View
+        android:id="@+id/separatord"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#ff8800"/>
+
+    <Button
+        android:id="@+id/btn_print_receiptd"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/GREEN"
+        android:textColor="@color/tabteal"
+        android:layout_margin="30dp"
+        android:enabled="true"
+        android:text="Print Dairy Collection Report" />
+
+    <TextView
+        android:id="@+id/tvd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="visible"/>
+
+</LinearLayout>
